@@ -43,7 +43,7 @@ class Question(models.Model):
     def __str__(self):
         return self.question_post
     class Meta:
-        ordering = ['question_post']
+        ordering = ['id']
 
 class Choice(models.Model):
     question_post = models.ForeignKey(Question, related_name='choices' , on_delete=models.CASCADE)
