@@ -1,0 +1,72 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/new-vote.css">
+<link rel="stylesheet" href="/static/css/webCamLib.css">
+
+
+<div id="svg_wrap"></div>
+
+ <h1>Get Verified to Vote</h1>
+<section>
+  <p>Personal information</p>
+  <input type="text" class="form-control" placeholder="NIN" />
+  <input type="text" class="form-control" placeholder="VOTE ID" />
+  <!-- <input type="text" class="form-control" placeholder="Birthdate" />
+  <input type="text" class="form-control" placeholder="Insurance number" />
+  <input type="text" placeholder="Family status" class="form-control" /> -->
+</section>
+
+<section>
+  <h3>Is this you?</h3>
+  <!-- <input type="text" class="form-control" placeholder="Street, nbr" />
+  <input type="text" class="form-control" placeholder="City" />
+  <input type="text" class="form-control" placeholder="Postcode" />
+  <input type="text" class="form-control" placeholder="Country" /> -->
+  <h5>
+      Full Name: <strong> Oduyale Enoch Oluwanifise</strong>
+      
+  </h5>
+</section>
+
+<section>
+  <p>We still need to verify it's you.</p>
+  <h4>Selfie check</h4>
+  <!-- <input type="text" class="form-control" placeholder="Email address" />
+  <input type="text" class="form-control" placeholder="Phone" />
+  <input type="text" class="form-control" placeholder="Mobile" /> -->
+<div class="image-capture"></div>
+ 
+  <p>
+    Shine your teeth to the camera :)
+
+  </p>
+</section>
+
+<section>
+  <h3>Please upload your voter's id</h3>
+  <input type="file" class="form-control" placeholder="Upload your voter's id" />
+  <!-- <input type="text" class="form-control" placeholder="Number of people" /> -->
+</section>
+
+<!-- <section>
+  <p>General condtitions</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</section> -->
+
+  <div class="button" id="prev">&larr; Previous</div>
+<div class="button" id="next">Next &rarr;</div>
+    <div class="button" id="submit"><a href="{% url 'vote' %}">Sign in</a>
+</div>
+
+
+
+
+{% endblock %}
+
+
+{% block javascript %}
+<script src="/static/js/webCamLib.min.js"></script>
+<script src="/static/js/new-vote.js"></script>
+{% endblock %}

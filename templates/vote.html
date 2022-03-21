@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}eVote9ja{% endblock %}
+
+
+{% block javascript %}
+<script>
+  $('#modalButton').hide();
+  
+
+  $(document).ready(function(){
+    $.ajax({
+  
+      type: 'GET',
+      url:'{% url "vote" %}',
+      
+      
+      
+      success: function(dataresponse){
+        
+        
+        fetch('http://localhost:8000/voters/').then(res => { 
+          return res.json();
+        })
+        .then(data => {
+         
+          let data1 = "";
+          let quizBox =  document.getElementById('question-div');
+         
+        
+            data.forEach(el =>{
+              
+                quizBox.innerHTML +=
+              `
+              <h1>Vote for ${el.question_post} </h1>
+               <hr>
+              `
+              
+              el.choices.forEach(
+                choice => {
+                  quizBox.innerHTML += `
+                  
+                  
+                  <label for="${el.question_post}">
+                    
+                  <input class="ans" type="radio" id="${choice.id}" name="${el.question_post}" value="${choice.choice_field}" /> ${choice.choice_field}
+                </label>
+                  <br/>
+                  </div>
+                </div>
+                  `
+        
+                })
+              ;
+        
+          });
+        }
+        
+        ).catch(err => console.log(err));
+            
+          
+       },
+  
+       failure: function(error) {
+         console.log(error);
+           
+       }
+  
+  });
+
+  const formSubmit = document.getElementById('submit');
+  const csrftoken = document.getElementsByName('csrfmiddlewaretoken');
+
+  
+
+
+
+  const sendData = () => {
+    
+    const elements = [...document.getElementsByClassName('ans')];
+    
+    
+    const data = {};
+    data['csrfmiddlewaretoken'] = csrftoken[0].value;
+    
+    elements.forEach(el => {
+      if(el.checked){
+        data[el.name] = el.value;
+      }else{
+        if(!data[el.name]){
+        data[el.name] = null;
+        }
+      }
+  
+  })
+
+    $.ajax({
+      type:'POST',
+      url:"{% url 'save-quiz' %}",
+      data:data, 
+      
+      success: function(response){
+        console.log(response)
+      }, 
+      error: function(error){
+        console.log(error)
+
+      },
+
+
+    });
+}
+    
+
+
+  formSubmit.addEventListener('submit', e=>{
+
+    e.preventDefault();
+
+
+    sendData();
+    $('#exampleModalCenter').modal('show');
+    $('#submit-id').hide();
+    $('#question-div').html(" ");
+   
+  });
+
+  });
+
+  
+
+    
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+
+ 
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" id="modalButton" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thumbs up!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>You have voted! Thanks for making your vote count!</h3>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-danger">
+        <a href="{% url 'landing' %}"> Log out</a>  
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <form id="submit" class="col-md-6 mt-5  mx-auto">
+      {% csrf_token %}
+    
+        <div id="question-div" class="card p-3"></div>
+    
+        <button type="submit" id="submit-id" class="btn mx-auto  mt-5 btn-md btn-danger">Submit</button>
+    </form>
+
+
+
+
+{% endblock %}

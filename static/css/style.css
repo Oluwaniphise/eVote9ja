@@ -1,0 +1,28 @@
+
+  body {
+    background: url('https://i.pinimg.com/originals/48/79/86/487986c17560a8ed1afdc55e480e5be2.png');
+    background-size:cover;
+    background-repeat:no-repeat;
+   
+   font-family: 'Noto Sans', sans-serif;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: -999px;
+  }
+
+
+  
+
+.vote-img{
+    width:100px;
+    height:100px;
+    /* border-radius: 50%; */
+}
+/* .question-div{
+    text-align:center;
+    justify-content: center;
+} */

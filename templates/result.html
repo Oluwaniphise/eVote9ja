@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Result for  {{question.question_post}} {% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5" id="result-div"></div>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+    fetch('http://localhost:8000/voters/').then(res => { 
+        return res.json();
+      })
+      .then(data => {
+       
+        let data1 = "";
+        let quizBox =  document.getElementById('result-div');
+       
+      
+          data.forEach(el =>{
+            
+              quizBox.innerHTML +=
+            `
+            <h1>Result for ${el.question_post} </h1>
+             <hr>
+            `
+            
+            el.choices.forEach(
+              choice => {
+                quizBox.innerHTML += `
+                
+                
+                
+                  
+                <h5>
+                    ${choice.choice_field} ----- ${choice.vote}
+
+                </h5>
+              
+                <br/>
+                </div>
+              </div>
+                `
+      
+              })
+            ;
+      
+        });
+      }).catch(err => console.log(err));
+</script>
+{% endblock %}
+
